@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber Profiles - Neon + Kar + Müzik</title>
+<title>Cyber Profiles - Kar + Neon + Müzik</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Courier New, monospace;}
@@ -13,14 +13,15 @@ video{
   position:fixed;inset:0;
   width:100%;height:100%;
   object-fit:cover;
-  filter:brightness(.4) contrast(1.3) saturate(1.5);
+  filter:brightness(0.25) contrast(1.3) saturate(1.5); /* daha koyu arka plan */
   z-index:-3;
 }
 
-canvas{position:fixed;inset:0;z-index:-1;}
-#snow{z-index:1;} /* kar efekti matrix ve video üstünde */
+canvas{position:fixed;inset:0;}
+#matrix{z-index:0;}
+#snow{z-index:10;pointer-events:none;} /* kar/emoji en üstte */
 
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:0;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:1;}
 
 .container{
   position:absolute;
@@ -112,7 +113,6 @@ const c=document.getElementById("matrix");
 const ctx=c.getContext("2d");
 c.width=innerWidth;
 c.height=innerHeight;
-
 const letters="01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 const colors=["#00ffcc","#ff00ff","#ffcc00","#00ccff","#ff66ff"];
 const font=18;
@@ -120,7 +120,7 @@ const cols=c.width/font;
 const drops=Array(cols).fill(1);
 
 setInterval(()=>{
-  ctx.fillStyle="rgba(0,0,0,0.08)";
+  ctx.fillStyle="rgba(0,0,0,0.1)";
   ctx.fillRect(0,0,c.width,c.height);
   ctx.font=font+"px monospace";
 
@@ -142,13 +142,14 @@ snow.height=innerHeight;
 
 const emojis=["❄️","🌟","✨","💻","⚡","🌐"];
 const particles=[];
-for(let i=0;i<120;i++){
+for(let i=0;i<150;i++){
   particles.push({
     x:Math.random()*snow.width,
     y:Math.random()*snow.height,
     emoji:emojis[Math.floor(Math.random()*emojis.length)],
-    speed:1+Math.random()*2,
-    size:15+Math.random()*20
+    speed:1+Math.random()*3,
+    size:15+Math.random()*25,
+    sway:Math.random()*1.5-0.75
   });
 }
 
@@ -158,7 +159,10 @@ function drawSnow(){
     sctx.font=p.size+"px monospace";
     sctx.fillText(p.emoji,p.x,p.y);
     p.y+=p.speed;
+    p.x+=p.sway;
     if(p.y>snow.height)p.y=-20;
+    if(p.x>snow.width)p.x=0;
+    if(p.x<0)p.x=snow.width;
   });
   requestAnimationFrame(drawSnow);
 }
