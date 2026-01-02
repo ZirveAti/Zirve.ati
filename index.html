@@ -1,123 +1,149 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zirve.ati</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zirve.ati</title>
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
 
-body {
-    background: #0e0e0e;
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+        }
 
-.card {
-    width: 100%;
-    max-width: 420px;
-    background: #1a1a1a;
-    border-radius: 16px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-}
+        .container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
 
-.profile-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 3px solid #333;
-}
+        #profile-block {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 820px;
+            min-height: 332px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+        }
 
-h1 {
-    font-size: 24px;
-    margin-bottom: 5px;
-}
+        .profile-header {
+            display: flex;
+            gap: 15px;
+        }
 
-.job {
-    font-size: 14px;
-    color: #aaa;
-    margin-bottom: 15px;
-}
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
 
-.bio {
-    font-size: 15px;
-    line-height: 1.5;
-    color: #ddd;
-    margin-bottom: 20px;
-}
+        #profile-name {
+            font-size: 32px;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
 
-.links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+        #profile-bio {
+            font-size: 18px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.5;
+        }
 
-.links a {
-    text-decoration: none;
-    color: #fff;
-    padding: 12px;
-    border-radius: 10px;
-    background: #2a2a2a;
-    transition: background 0.2s;
-}
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
 
-.links a:hover {
-    background: #3a3a3a;
-}
+        .social-links a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
 
-footer {
-    margin-top: 20px;
-    font-size: 12px;
-    color: #777;
-}
-</style>
+        .social-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        @media (max-width: 430px) {
+            #profile-block {
+                width: 90vw;
+            }
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="card">
-    <!-- PROFİL FOTO -->
-    <img src="profile.jpg" class="profile-img" alt="Profil Fotoğrafı">
+<div class="container">
 
-    <!-- İSİM -->
-    <h1>Zirve.ati</h1>
+    <div id="profile-block">
 
-    <!-- MESLEK -->
-    <div class="job">Social Media Expert</div>
+        <div class="profile-header">
+            <img src="profile.jpg" class="profile-picture" alt="Profil Fotoğrafı">
 
-    <!-- BIO (AYNI KALDI) -->
-    <div class="bio">
-        Sosyal medya yönetimi, dijital projeler ve
-        marka büyütme üzerine çalışıyorum.
+            <div>
+                <div id="profile-name">Zirve.ati</div>
+
+                <!-- BIO AYNI KALDI -->
+                <div id="profile-bio">
+                    Social Media Expert
+                </div>
+            </div>
+        </div>
+
+        <!-- SADECE 2 LİNK -->
+        <div class="social-links">
+            <a href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz" target="_blank">
+                Instagram
+            </a>
+            <a href="https://wa.me/905365556710">
+                WhatsApp
+            </a>
+        </div>
+
     </div>
 
-    <!-- SADECE 2 LİNK -->
-    <div class="links">
-        <a href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz" target="_blank">
-            Instagram
-        </a>
-        <a href="https://wa.me/905365556710">
-            WhatsApp
-        </a>
-    </div>
-
-    <footer>
-        © 2026
-    </footer>
 </div>
+
+<!-- 🎵 MP3 MÜZİK -->
+<audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    document.addEventListener("click", () => {
+        const music = document.getElementById("bg-music");
+        music.volume = 0.6;
+        music.play();
+    }, { once: true });
+</script>
 
 </body>
 </html>
