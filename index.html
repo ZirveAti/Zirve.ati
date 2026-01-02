@@ -1,149 +1,153 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zirve.ati</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zirve | Social Media Expert</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', monospace;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Courier New', monospace;
+}
 
-        body {
-            background-color: #000;
-            color: #fff;
-            overflow: hidden;
-        }
+body{
+    height:100vh;
+    overflow:hidden;
+    background:black;
+    color:#e5e5e5;
+}
 
-        .container {
-            width: 100%;
-            height: 100vh;
-            position: relative;
-        }
+/* VIDEO */
+video{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(0.3) contrast(1.25);
+    z-index:-3;
+}
 
-        #profile-block {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 820px;
-            min-height: 332px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 15px;
-            z-index: 20;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            backdrop-filter: blur(10px);
-        }
+/* DARK OVERLAY */
+.overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.98));
+    z-index:-2;
+}
 
-        .profile-header {
-            display: flex;
-            gap: 15px;
-        }
+/* CARD */
+.card{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    padding:48px 38px;
+    text-align:center;
+    background:rgba(0,0,0,0.75);
+    border-radius:14px;
+    border:1px solid rgba(0,255,255,0.18);
+    box-shadow:0 0 45px rgba(0,255,255,0.2);
+}
 
-        .profile-picture {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+/* TITLE */
+h1{
+    font-size:30px;
+    letter-spacing:5px;
+    color:#00ffff;
+    animation:flicker 4s infinite;
+}
 
-        #profile-name {
-            font-size: 32px;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-        }
+@keyframes flicker{
+    0%,20%,23%,55%,100% {opacity:1;}
+    21%,24%,56% {opacity:0.5;}
+}
 
-        #profile-bio {
-            font-size: 18px;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.5;
-        }
+p{
+    margin-top:12px;
+    font-size:15px;
+    opacity:0.7;
+    letter-spacing:1px;
+}
 
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
+/* INSTAGRAM */
+a{
+    display:inline-block;
+    margin-top:22px;
+    font-size:19px;
+    color:#00ffff;
+    text-decoration:none;
+    letter-spacing:2px;
+}
 
-        .social-links a {
-            text-decoration: none;
-            color: #fff;
-            padding: 10px 18px;
-            border-radius: 20px;
-            background: rgba(255,255,255,0.1);
-            transition: 0.3s;
-        }
+a:hover{
+    text-shadow:0 0 20px #00ffff;
+}
 
-        .social-links a:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        @media (max-width: 430px) {
-            #profile-block {
-                width: 90vw;
-            }
-            .profile-header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-        }
-    </style>
+/* MUSIC BUTTON */
+.music-btn{
+    margin-top:25px;
+    padding:10px 22px;
+    background:transparent;
+    border:1px solid rgba(0,255,255,0.4);
+    color:#00ffff;
+    border-radius:30px;
+    cursor:pointer;
+    letter-spacing:1px;
+}
+.music-btn:hover{
+    background:rgba(0,255,255,0.1);
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- DARK CYBER VIDEO -->
+<video autoplay muted loop playsinline>
+    <source src="https://cdn.coverr.co/videos/coverr-coding-at-night-9893/1080p.mp4" type="video/mp4">
+</video>
 
-    <div id="profile-block">
+<div class="overlay"></div>
 
-        <div class="profile-header">
-            <img src="profile.jpg" class="profile-picture" alt="Profil Fotoğrafı">
+<div class="card">
+    <h1>SOCIAL MEDIA EXPERT</h1>
+    <p>Elite • Dark • Cyber</p>
 
-            <div>
-                <div id="profile-name">Zirve.ati</div>
+    <a href="https://instagram.com/zirve.at1" target="_blank">
+        @zirve.at1
+    </a>
 
-                <!-- BIO AYNI KALDI -->
-                <div id="profile-bio">
-                    Social Media Expert
-                </div>
-            </div>
-        </div>
-
-        <!-- SADECE 2 LİNK -->
-        <div class="social-links">
-            <a href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz" target="_blank">
-                Instagram
-            </a>
-            <a href="https://wa.me/905365556710">
-                WhatsApp
-            </a>
-        </div>
-
-    </div>
-
+    <br>
+    <button class="music-btn" onclick="toggleMusic()">🎵 Müzik Aç / Kapat</button>
 </div>
 
-<!-- 🎵 MP3 MÜZİK -->
-<audio id="bg-music" loop>
-    <source src="music.mp3" type="audio/mpeg">
+<!-- ALACARTE DARK MUSIC -->
+<audio id="bgMusic" loop>
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Dark_Souls/II/Dark_Souls_-_Majula.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-    document.addEventListener("click", () => {
-        const music = document.getElementById("bg-music");
-        music.volume = 0.6;
+let music = document.getElementById("bgMusic");
+let playing = false;
+
+function toggleMusic(){
+    if(!playing){
+        music.volume = 0.4;
         music.play();
-    }, { once: true });
+        playing = true;
+    }else{
+        music.pause();
+        playing = false;
+    }
+}
 </script>
 
 </body>
 </html>
+
