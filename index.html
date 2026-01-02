@@ -73,7 +73,7 @@ p{opacity:.8;margin-bottom:12px;color:#80ffff;}
 
 </div>
 
-<!-- SES -->
+<!-- SES BUTONU -->
 <div class="container" style="top:85%">
   <div class="btn" onclick="toggleSound()">🎵 Ambient Ses</div>
 </div>
@@ -84,6 +84,7 @@ const c=document.getElementById("matrix"),ctx=c.getContext("2d");
 c.width=innerWidth;c.height=innerHeight;
 const chars="01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",size=18;
 const cols=c.width/size,drops=Array(Math.floor(cols)).fill(1);
+
 setInterval(()=>{
   ctx.fillStyle="rgba(0,0,0,0.08)";
   ctx.fillRect(0,0,c.width,c.height);
@@ -97,30 +98,47 @@ setInterval(()=>{
   });
 },33);
 
-/* UZUN AMBIENT SES */
-let audioCtx,osc1,osc2,gainNode,playing=false;
+/* 🔊 UZUN AMBIENT SES – iOS FIX DAHİL */
+let audioCtx = null;
+let osc1, osc2, gainNode;
+let playing = false;
+
 function toggleSound(){
+
+  if(!audioCtx){
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  // iOS / Safari için ZORUNLU
+  if(audioCtx.state === "suspended"){
+    audioCtx.resume();
+  }
+
   if(!playing){
-    audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-    osc1=audioCtx.createOscillator();
-    osc2=audioCtx.createOscillator();
-    gainNode=audioCtx.createGain();
-    osc1.type="sine";
-    osc2.type="triangle";
-    osc1.frequency.value=120+Math.random()*40;
-    osc2.frequency.value=220+Math.random()*60;
-    gainNode.gain.value=0.08;
+    osc1 = audioCtx.createOscillator();
+    osc2 = audioCtx.createOscillator();
+    gainNode = audioCtx.createGain();
+
+    osc1.type = "sine";
+    osc2.type = "triangle";
+
+    osc1.frequency.value = 110 + Math.random()*30;
+    osc2.frequency.value = 220 + Math.random()*40;
+
+    gainNode.gain.value = 0.07;
+
     osc1.connect(gainNode);
     osc2.connect(gainNode);
     gainNode.connect(audioCtx.destination);
+
     osc1.start();
     osc2.start();
-    playing=true;
-  }else{
+
+    playing = true;
+  } else {
     osc1.stop();
     osc2.stop();
-    audioCtx.close();
-    playing=false;
+    playing = false;
   }
 }
 </script>
