@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber Profiles - Kar + Neon + Müzik</title>
+<title>Cyber Profiles</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Courier New, monospace;}
@@ -13,20 +13,12 @@ video{
   position:fixed;inset:0;
   width:100%;height:100%;
   object-fit:cover;
-  filter:brightness(0.25) contrast(1.3) saturate(1.5);
+  filter:brightness(.25) contrast(1.3);
   z-index:-3;
 }
 
-/* CANVASLAR ÜSTÜNDE KAR GÖRÜNSÜN AMA TIKLAMALARA ENGEL OLMASIN */
-canvas{
-  position:fixed;
-  inset:0;
-  pointer-events:none; /* ÖNEMLİ: tuş ve tıklamayı engellemez */
-}
-#matrix{z-index:0;}
-#snow{z-index:20;} /* kar canvas en üstte */
-
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:1;}
+canvas{position:fixed;inset:0;z-index:-2;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:-1;}
 
 .container{
   position:absolute;
@@ -41,152 +33,106 @@ canvas{
 .card{
   width:260px;
   text-align:center;
-  background:linear-gradient(135deg, rgba(0,255,255,0.2), rgba(255,0,255,0.2));
+  background:rgba(0,0,0,.75);
   padding:25px;
-  border:1px solid #00ffff;
-  box-shadow:0 0 25px rgba(0,255,255,.5), 0 0 45px rgba(255,0,255,.3);
-  transition:0.3s all ease;
-}
-.card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 0 50px rgba(0,255,255,.7), 0 0 70px rgba(255,0,255,.5);
+  border:1px solid #00ff00;
+  box-shadow:0 0 30px rgba(0,255,0,.4);
 }
 
 h2{letter-spacing:3px;margin-bottom:6px;}
-h3{letter-spacing:2px;margin-bottom:6px;color:#ff80ff;}
-p{opacity:.7;margin-bottom:12px;color:#80ffff;}
+h3{letter-spacing:2px;margin-bottom:10px;}
+p{opacity:.7;margin-bottom:15px}
 
 .btn{
   display:block;
   margin:10px 0;
   padding:10px;
-  color:#ffcc00;
-  border:1px solid #ffcc00;
+  color:#00ff00;
+  border:1px solid #00ff00;
   text-decoration:none;
   cursor:pointer;
 }
-.btn:hover{background:#ffcc00;color:black;}
+.btn:hover{background:#00ff00;color:black;}
 </style>
 </head>
 
 <body>
 
+<!-- SANALCI VIDEO -->
 <video autoplay muted loop playsinline>
   <source src="bg.mp4" type="video/mp4">
 </video>
 
 <canvas id="matrix"></canvas>
-<canvas id="snow"></canvas>
 <div class="overlay"></div>
 
 <div class="container">
 
-  <!-- ATI -->
+  <!-- PROFİL 1 : ATI -->
   <div class="card">
-    <h2>ATI ❄️</h2>
-    <h3>Social Media Expert 💻</h3>
-    <p>DIGITAL POWER ⚡</p>
+    <h2>ATI</h2>
+    <h3>Social Media Expert</h3>
     <a class="btn" target="_blank"
-      href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz">Instagram</a>
+      href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz">
+      Instagram
+    </a>
     <a class="btn" target="_blank"
-      href="https://wa.me/905365556710">WhatsApp</a>
+      href="https://wa.me/905365556710">
+      WhatsApp
+    </a>
   </div>
 
-  <!-- ELC1NN -->
+  <!-- PROFİL 2 : ELC1NN -->
   <div class="card">
-    <h2>ELC1NN 🌐</h2>
-    <p>Digital Profile 🖥️</p>
-    <p>CYBER FUTURE 🚀</p>
+    <h2>ELC1NN</h2>
+    <p>Digital Profile</p>
     <a class="btn" target="_blank"
-      href="https://www.instagram.com/elc1nn23?igsh=MjlsN2R6ajA1eGRj">Instagram</a>
+      href="https://www.instagram.com/elc1nn23?igsh=MjlsN2R6ajA1eGRj">
+      Instagram
+    </a>
   </div>
 
 </div>
 
 <!-- MÜZİK BUTONU -->
 <div class="container" style="top:85%">
-  <div class="btn" id="musicBtn">🎵 Deha – Alacarte</div>
+  <div class="btn" onclick="playMusic()">🎵 Deha – Alacarte</div>
 </div>
 
-<audio id="music" preload="auto">
+<audio id="music">
   <source src="deha.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* MATRIX NEON */
+/* MATRIX */
 const c=document.getElementById("matrix");
 const ctx=c.getContext("2d");
 c.width=innerWidth;
 c.height=innerHeight;
-const letters="01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-const colors=["#00ffcc","#ff00ff","#ffcc00","#00ccff","#ff66ff"];
-const font=18;
+const letters="01";
+const font=16;
 const cols=c.width/font;
 const drops=Array(cols).fill(1);
 
 setInterval(()=>{
-  ctx.fillStyle="rgba(0,0,0,0.1)";
+  ctx.fillStyle="rgba(0,0,0,0.05)";
   ctx.fillRect(0,0,c.width,c.height);
+  ctx.fillStyle="#00ff00";
   ctx.font=font+"px monospace";
-
   drops.forEach((y,i)=>{
-    const t=letters[Math.floor(Math.random()*letters.length)];
-    ctx.fillStyle=colors[Math.floor(Math.random()*colors.length)];
+    const t=letters[Math.random()>0.5?1:0];
     ctx.fillText(t,i*font,y*font);
-
     if(y*font>c.height&&Math.random()>0.975)drops[i]=0;
     drops[i]++;
   });
 },33);
 
-/* GERÇEK KAR EFEKTİ */
-const snow=document.getElementById("snow");
-const sctx=snow.getContext("2d");
-snow.width=innerWidth;
-snow.height=innerHeight;
-
-const particles=[];
-for(let i=0;i<200;i++){
-  particles.push({
-    x:Math.random()*snow.width,
-    y:Math.random()*snow.height,
-    r:1+Math.random()*3,
-    speed:1+Math.random()*2,
-    sway:Math.random()*1-0.5
-  });
+/* MUSIC */
+function playMusic(){
+  const m=document.getElementById("music");
+  m.volume=0.6;
+  m.play();
 }
-
-function drawSnow(){
-  sctx.clearRect(0,0,snow.width,snow.height);
-  particles.forEach(p=>{
-    sctx.fillStyle="white";
-    sctx.beginPath();
-    sctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    sctx.fill();
-    p.y+=p.speed;
-    p.x+=p.sway;
-    if(p.y>snow.height)p.y=-5;
-    if(p.x>snow.width)p.x=0;
-    if(p.x<0)p.x=snow.width;
-  });
-  requestAnimationFrame(drawSnow);
-}
-drawSnow();
-
-/* MÜZİK */
-const music=document.getElementById("music");
-document.getElementById("musicBtn").addEventListener("click",()=>{
-  music.volume=0.6;
-  music.play().catch(e=>console.log("Müzik çalınamadı, tarayıcı izin verilmeli"));
-});
-
-/* PENCERE BOYUTU DEĞİŞİNCE */
-window.addEventListener("resize",()=>{
-  c.width=window.innerWidth;
-  c.height=window.innerHeight;
-  snow.width=window.innerWidth;
-  snow.height=window.innerHeight;
-});
 </script>
 
 </body>
