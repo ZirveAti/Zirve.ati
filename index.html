@@ -3,33 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber Profiles - Neon + Müzik</title>
+<title>Cyber Profiles - Neon</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Courier New, monospace;}
 body{background:black;color:#00ff00;overflow:hidden;}
 
-/* Video arka plan */
 video{
   position:fixed;inset:0;
   width:100%;height:100%;
   object-fit:cover;
-  filter:brightness(0.25) contrast(1.3) saturate(1.5);
+  filter:brightness(.4) contrast(1.3) saturate(1.5);
   z-index:-3;
 }
 
-/* Canvas ve overlay tıklamayı engellemesin */
-canvas, .overlay {
-  position:fixed;
-  inset:0;
-  pointer-events:none; /* Tıklamalar buradan geçer */
-}
-#matrix{z-index:0;}
-.overlay{z-index:1;background:rgba(0,0,0,.25);}
+canvas{position:fixed;inset:0;z-index:-2;}
 
-/* Container ve kartlar normal tıklanabilir */
-.container, .card, .btn {
-  pointer-events:auto;
+.overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.35);
+  z-index:-1;
 }
 
 .container{
@@ -42,6 +35,7 @@ canvas, .overlay {
   justify-content:center;
 }
 
+/* Kartlar */
 .card{
   width:260px;
   text-align:center;
@@ -86,9 +80,9 @@ p{opacity:.7;margin-bottom:12px;color:#80ffff;}
 
   <!-- ATI -->
   <div class="card">
-    <h2>ATI ❄️</h2>
-    <h3>Social Media Expert 💻</h3>
-    <p>DIGITAL POWER ⚡</p>
+    <h2>ATI</h2>
+    <h3>Social Media Expert</h3>
+    <p>DIGITAL POWER</p>
     <a class="btn" target="_blank"
       href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz">Instagram</a>
     <a class="btn" target="_blank"
@@ -97,9 +91,9 @@ p{opacity:.7;margin-bottom:12px;color:#80ffff;}
 
   <!-- ELC1NN -->
   <div class="card">
-    <h2>ELC1NN 🌐</h2>
-    <p>Digital Profile 🖥️</p>
-    <p>CYBER FUTURE 🚀</p>
+    <h2>ELC1NN</h2>
+    <p>Digital Profile</p>
+    <p>CYBER FUTURE</p>
     <a class="btn" target="_blank"
       href="https://www.instagram.com/elc1nn23?igsh=MjlsN2R6ajA1eGRj">Instagram</a>
   </div>
@@ -108,19 +102,20 @@ p{opacity:.7;margin-bottom:12px;color:#80ffff;}
 
 <!-- MÜZİK BUTONU -->
 <div class="container" style="top:85%">
-  <div class="btn" id="musicBtn">🎵 Deha – Alacarte</div>
+  <div class="btn" onclick="playMusic()">🎵 Deha – Alacarte</div>
 </div>
 
-<audio id="music" preload="auto">
+<audio id="music">
   <source src="deha.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* MATRIX NEON */
+/* NEON MATRIX + RANDOM YAZI EFEKTI */
 const c=document.getElementById("matrix");
 const ctx=c.getContext("2d");
 c.width=innerWidth;
 c.height=innerHeight;
+
 const letters="01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 const colors=["#00ffcc","#ff00ff","#ffcc00","#00ccff","#ff66ff"];
 const font=18;
@@ -128,7 +123,7 @@ const cols=c.width/font;
 const drops=Array(cols).fill(1);
 
 setInterval(()=>{
-  ctx.fillStyle="rgba(0,0,0,0.1)";
+  ctx.fillStyle="rgba(0,0,0,0.08)";
   ctx.fillRect(0,0,c.width,c.height);
   ctx.font=font+"px monospace";
 
@@ -142,18 +137,12 @@ setInterval(()=>{
   });
 },33);
 
-/* MÜZİK */
-const music=document.getElementById("music");
-document.getElementById("musicBtn").addEventListener("click",()=>{
-  music.volume=0.6;
-  music.play().catch(e=>console.log("Müzik çalınamadı, tarayıcı izin verilmeli"));
-});
-
-/* PENCERE BOYUTU DEĞİŞİNCE */
-window.addEventListener("resize",()=>{
-  c.width=window.innerWidth;
-  c.height=window.innerHeight;
-});
+/* MUSIC */
+function playMusic(){
+  const m=document.getElementById("music");
+  m.volume=0.6;
+  m.play();
+}
 </script>
 
 </body>
