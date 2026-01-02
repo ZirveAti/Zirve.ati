@@ -3,17 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Siber Profiller - Neon ✦</title>
+<title>Siber Profiller - Neon</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Courier New, monospace;}
 body{background:black;color:#00ff00;overflow:hidden;}
 canvas{position:fixed;inset:0;z-index:-2;}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:-1;}
+#fog{z-index:-1;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:0;}
+
 .container{
   position:absolute;top:50%;left:50%;
   transform:translate(-50%,-50%);
   display:flex;gap:30px;flex-wrap:wrap;justify-content:center;
+  z-index:1;
 }
 .card{
   width:260px;text-align:center;padding:25px;
@@ -28,7 +31,7 @@ canvas{position:fixed;inset:0;z-index:-2;}
 }
 h2{letter-spacing:3px;margin-bottom:6px;}
 h3{margin-bottom:6px;color:#ff80ff;}
-p{opacity:.8;margin-bottom:12px;color:#80ffff;}
+p{opacity:.85;margin-bottom:12px;color:#80ffff;}
 .btn{
   display:block;margin:8px 0;padding:10px;
   border:1px solid #ffcc00;color:#ffcc00;
@@ -40,105 +43,106 @@ p{opacity:.8;margin-bottom:12px;color:#80ffff;}
 
 <body>
 
-<canvas id="matrix"></canvas>
+<canvas id="snow"></canvas>
+<canvas id="fog"></canvas>
 <div class="overlay"></div>
 
 <div class="container">
 
-  <!-- ATI -->
   <div class="card">
     <h2>ATI ✦</h2>
     <h3>Sosyal Medya Uzmanı</h3>
     <p>⚡ Dijital Güç</p>
-    <a class="btn" target="_blank"
-       href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz">
-       Instagram 📷
-    </a>
-    <a class="btn" target="_blank"
-       href="https://wa.me/905365556710">
-       WhatsApp 💬
-    </a>
+    <a class="btn" target="_blank" href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz">Instagram 📷</a>
+    <a class="btn" target="_blank" href="https://wa.me/905365556710">WhatsApp 💬</a>
   </div>
 
-  <!-- ELC1NN -->
   <div class="card">
-    <h2>ELC1NN ✦</h2>
+    <h2>ELC1NN ❄️</h2>
     <p>Dijital Profil</p>
     <p>🚀 Siber Gelecek</p>
-    <a class="btn" target="_blank"
-       href="https://www.instagram.com/elc1nn23?igsh=MjlsN2R6ajA1eGRj">
-       Instagram 📷
-    </a>
+    <a class="btn" target="_blank" href="https://www.instagram.com/elc1nn23?igsh=MjlsN2R6ajA1eGRj">Instagram 📷</a>
   </div>
 
 </div>
 
-<!-- SES BUTONU -->
 <div class="container" style="top:85%">
-  <div class="btn" onclick="toggleSound()">🎵 Ambient Ses</div>
+  <div class="btn" onclick="toggleSound()">🎵 Ortam Sesleri</div>
 </div>
 
 <script>
-/* MATRIX */
-const c=document.getElementById("matrix"),ctx=c.getContext("2d");
-c.width=innerWidth;c.height=innerHeight;
-const chars="01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",size=18;
-const cols=c.width/size,drops=Array(Math.floor(cols)).fill(1);
+/* ❄️ KAR */
+const snow = document.getElementById("snow");
+const sctx = snow.getContext("2d");
+snow.width = innerWidth;
+snow.height = innerHeight;
 
-setInterval(()=>{
-  ctx.fillStyle="rgba(0,0,0,0.08)";
-  ctx.fillRect(0,0,c.width,c.height);
-  ctx.font=size+"px monospace";
-  ctx.fillStyle="#00ff00";
-  drops.forEach((y,i)=>{
-    const t=chars[Math.floor(Math.random()*chars.length)];
-    ctx.fillText(t,i*size,y*size);
-    if(y*size>c.height&&Math.random()>0.97)drops[i]=0;
-    drops[i]++;
+let flakes = Array.from({length:120},()=>({
+  x:Math.random()*snow.width,
+  y:Math.random()*snow.height,
+  r:Math.random()*3+1,
+  d:Math.random()+0.5
+}));
+
+function drawSnow(){
+  sctx.clearRect(0,0,snow.width,snow.height);
+  sctx.fillStyle="white";
+  flakes.forEach(f=>{
+    sctx.beginPath();
+    sctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+    sctx.fill();
+    f.y+=f.d;
+    if(f.y>snow.height){f.y=-5;f.x=Math.random()*snow.width;}
   });
-},33);
+  requestAnimationFrame(drawSnow);
+}
+drawSnow();
 
-/* 🔊 UZUN AMBIENT SES – iOS FIX DAHİL */
-let audioCtx = null;
-let osc1, osc2, gainNode;
-let playing = false;
+/* 🌫️ SİS */
+const fog = document.getElementById("fog");
+const fctx = fog.getContext("2d");
+fog.width = innerWidth;
+fog.height = innerHeight;
 
+let fogX = 0;
+
+function drawFog(){
+  fctx.clearRect(0,0,fog.width,fog.height);
+  let grd = fctx.createLinearGradient(fogX,0,fogX+fog.width,0);
+  grd.addColorStop(0,"rgba(200,200,255,0.05)");
+  grd.addColorStop(0.5,"rgba(255,255,255,0.12)");
+  grd.addColorStop(1,"rgba(200,200,255,0.05)");
+
+  fctx.fillStyle = grd;
+  fctx.fillRect(0,0,fog.width,fog.height);
+
+  fogX += 0.15;
+  if(fogX > fog.width) fogX = 0;
+
+  requestAnimationFrame(drawFog);
+}
+drawFog();
+
+/* 🔊 ORTAM SES */
+let audioCtx, osc1, osc2, gainNode, playing=false;
 function toggleSound(){
-
-  if(!audioCtx){
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-
-  // iOS / Safari için ZORUNLU
-  if(audioCtx.state === "suspended"){
-    audioCtx.resume();
-  }
+  if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==="suspended") audioCtx.resume();
 
   if(!playing){
-    osc1 = audioCtx.createOscillator();
-    osc2 = audioCtx.createOscillator();
-    gainNode = audioCtx.createGain();
-
-    osc1.type = "sine";
-    osc2.type = "triangle";
-
-    osc1.frequency.value = 110 + Math.random()*30;
-    osc2.frequency.value = 220 + Math.random()*40;
-
-    gainNode.gain.value = 0.07;
-
-    osc1.connect(gainNode);
-    osc2.connect(gainNode);
+    osc1=audioCtx.createOscillator();
+    osc2=audioCtx.createOscillator();
+    gainNode=audioCtx.createGain();
+    osc1.type="sine"; osc2.type="triangle";
+    osc1.frequency.value=120; osc2.frequency.value=220;
+    gainNode.gain.value=0.06;
+    osc1.connect(gainNode); osc2.connect(gainNode);
     gainNode.connect(audioCtx.destination);
-
-    osc1.start();
-    osc2.start();
-
-    playing = true;
-  } else {
-    osc1.stop();
-    osc2.stop();
-    playing = false;
+    osc1.start(); osc2.start();
+    playing=true;
+  }else{
+    osc1.stop(); osc2.stop();
+    playing=false;
   }
 }
 </script>
