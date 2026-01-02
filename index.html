@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber Profiles</title>
+<title>Cyber Profiles - Neon + Kar</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Courier New, monospace;}
@@ -13,12 +13,12 @@ video{
   position:fixed;inset:0;
   width:100%;height:100%;
   object-fit:cover;
-  filter:brightness(.25) contrast(1.3);
+  filter:brightness(.4) contrast(1.3) saturate(1.5);
   z-index:-3;
 }
 
 canvas{position:fixed;inset:0;z-index:-2;}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:-1;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:-1;}
 
 .container{
   position:absolute;
@@ -33,63 +33,64 @@ canvas{position:fixed;inset:0;z-index:-2;}
 .card{
   width:260px;
   text-align:center;
-  background:rgba(0,0,0,.75);
+  background:linear-gradient(135deg, rgba(0,255,255,0.2), rgba(255,0,255,0.2));
   padding:25px;
-  border:1px solid #00ff00;
-  box-shadow:0 0 30px rgba(0,255,0,.4);
+  border:1px solid #00ffff;
+  box-shadow:0 0 25px rgba(0,255,255,.5), 0 0 45px rgba(255,0,255,.3);
+  transition:0.3s all ease;
+}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 50px rgba(0,255,255,.7), 0 0 70px rgba(255,0,255,.5);
 }
 
 h2{letter-spacing:3px;margin-bottom:6px;}
-h3{letter-spacing:2px;margin-bottom:10px;}
-p{opacity:.7;margin-bottom:15px}
+h3{letter-spacing:2px;margin-bottom:6px;color:#ff80ff;}
+p{opacity:.7;margin-bottom:12px;color:#80ffff;}
 
 .btn{
   display:block;
   margin:10px 0;
   padding:10px;
-  color:#00ff00;
-  border:1px solid #00ff00;
+  color:#ffcc00;
+  border:1px solid #ffcc00;
   text-decoration:none;
   cursor:pointer;
 }
-.btn:hover{background:#00ff00;color:black;}
+.btn:hover{background:#ffcc00;color:black;}
 </style>
 </head>
 
 <body>
 
-<!-- SANALCI VIDEO -->
 <video autoplay muted loop playsinline>
   <source src="bg.mp4" type="video/mp4">
 </video>
 
 <canvas id="matrix"></canvas>
+<canvas id="snow"></canvas>
 <div class="overlay"></div>
 
 <div class="container">
 
-  <!-- PROFİL 1 : ATI -->
+  <!-- ATI -->
   <div class="card">
-    <h2>ATI</h2>
-    <h3>Social Media Expert</h3>
+    <h2>ATI ❄️</h2>
+    <h3>Social Media Expert 💻</h3>
+    <p>DIGITAL POWER ⚡</p>
     <a class="btn" target="_blank"
-      href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz">
-      Instagram
-    </a>
+      href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz">Instagram</a>
     <a class="btn" target="_blank"
-      href="https://wa.me/905365556710">
-      WhatsApp
-    </a>
+      href="https://wa.me/905365556710">WhatsApp</a>
   </div>
 
-  <!-- PROFİL 2 : ELC1NN -->
+  <!-- ELC1NN -->
   <div class="card">
-    <h2>ELC1NN</h2>
-    <p>Digital Profile</p>
+    <h2>ELC1NN 🌐</h2>
+    <p>Digital Profile 🖥️</p>
+    <p>CYBER FUTURE 🚀</p>
     <a class="btn" target="_blank"
-      href="https://www.instagram.com/elc1nn23?igsh=MjlsN2R6ajA1eGRj">
-      Instagram
-    </a>
+      href="https://www.instagram.com/elc1nn23?igsh=MjlsN2R6ajA1eGRj">Instagram</a>
   </div>
 
 </div>
@@ -104,37 +105,77 @@ p{opacity:.7;margin-bottom:15px}
 </audio>
 
 <script>
-/* MATRIX */
+/* MATRIX NEON */
 const c=document.getElementById("matrix");
 const ctx=c.getContext("2d");
 c.width=innerWidth;
 c.height=innerHeight;
-const letters="01";
-const font=16;
+const letters="01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const colors=["#00ffcc","#ff00ff","#ffcc00","#00ccff","#ff66ff"];
+const font=18;
 const cols=c.width/font;
 const drops=Array(cols).fill(1);
 
 setInterval(()=>{
-  ctx.fillStyle="rgba(0,0,0,0.05)";
+  ctx.fillStyle="rgba(0,0,0,0.08)";
   ctx.fillRect(0,0,c.width,c.height);
-  ctx.fillStyle="#00ff00";
   ctx.font=font+"px monospace";
+
   drops.forEach((y,i)=>{
-    const t=letters[Math.random()>0.5?1:0];
+    const t=letters[Math.floor(Math.random()*letters.length)];
+    ctx.fillStyle=colors[Math.floor(Math.random()*colors.length)];
     ctx.fillText(t,i*font,y*font);
+
     if(y*font>c.height&&Math.random()>0.975)drops[i]=0;
     drops[i]++;
   });
 },33);
 
-/* MUSIC */
+/* MÜZİK */
 function playMusic(){
   const m=document.getElementById("music");
   m.volume=0.6;
   m.play();
 }
+
+/* KAR EFEKTİ EMOJİLER */
+const snow=document.getElementById("snow");
+const sctx=snow.getContext("2d");
+snow.width=innerWidth;
+snow.height=innerHeight;
+
+const emojis=["❄️","🌟","✨","💻","⚡","🌐"];
+const particles=[];
+for(let i=0;i<100;i++){
+  particles.push({
+    x:Math.random()*snow.width,
+    y:Math.random()*snow.height,
+    emoji:emojis[Math.floor(Math.random()*emojis.length)],
+    speed:1+Math.random()*2,
+    size:15+Math.random()*15
+  });
+}
+
+function drawSnow(){
+  sctx.clearRect(0,0,snow.width,snow.height);
+  particles.forEach(p=>{
+    sctx.font=p.size+"px monospace";
+    sctx.fillText(p.emoji,p.x,p.y);
+    p.y+=p.speed;
+    if(p.y>snow.height)p.y=-10;
+  });
+  requestAnimationFrame(drawSnow);
+}
+drawSnow();
+
+/* WINDOW RESIZE */
+window.addEventListener("resize",()=>{
+  c.width=window.innerWidth;
+  c.height=window.innerHeight;
+  snow.width=window.innerWidth;
+  snow.height=window.innerHeight;
+});
 </script>
 
 </body>
 </html>
-
