@@ -3,71 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zirve Ati | Social Media Expert</title>
+<title>Zirve.ati</title>
 
 <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-  color: #fff;
+    background: #0e0e0e;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card {
-  width: 90%;
-  max-width: 380px;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 24px;
-  padding: 28px 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
-  text-align: center;
+    width: 100%;
+    max-width: 420px;
+    background: #1a1a1a;
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
-.name {
-  font-size: 2.2rem;
-  font-weight: 600;
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #333;
 }
 
-.role {
-  font-size: 1rem;
-  opacity: 0.85;
-  margin-bottom: 18px;
+h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.job {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 15px;
 }
 
 .bio {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  opacity: 0.9;
-  margin-bottom: 22px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #ddd;
+    margin-bottom: 20px;
 }
 
-.btn {
-  display: block;
-  margin: 10px 0;
-  padding: 14px;
-  border-radius: 14px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 500;
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
-  transition: transform 0.2s, opacity 0.2s;
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.btn:hover {
-  transform: scale(1.03);
-  opacity: 0.95;
+.links a {
+    text-decoration: none;
+    color: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    background: #2a2a2a;
+    transition: background 0.2s;
 }
 
-.footer {
-  margin-top: 14px;
-  font-size: 0.75rem;
-  opacity: 0.6;
+.links a:hover {
+    background: #3a3a3a;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #777;
 }
 </style>
 </head>
@@ -75,24 +89,34 @@ body {
 <body>
 
 <div class="card">
-  <div class="name">Zirve Ati</div>
-  <div class="role">Social Media Expert</div>
+    <!-- PROFİL FOTO -->
+    <img src="profile.jpg" class="profile-img" alt="Profil Fotoğrafı">
 
-  <div class="bio">
-    Instagram büyütme • Reels stratejisi<br>
-    Reklam yönetimi • Hesap analizi<br>
-    Markanı dijitalde öne çıkar
-  </div>
+    <!-- İSİM -->
+    <h1>Zirve.ati</h1>
 
-  <a class="btn" href="tel:+905365556710">📞 Hemen Ara</a>
+    <!-- MESLEK -->
+    <div class="job">Social Media Expert</div>
 
-  <a class="btn" href="https://www.instagram.com/Zirve.at1" target="_blank">
-    📷 Instagram Profilim
-  </a>
+    <!-- BIO (AYNI KALDI) -->
+    <div class="bio">
+        Sosyal medya yönetimi, dijital projeler ve
+        marka büyütme üzerine çalışıyorum.
+    </div>
 
-  <div class="footer">
-    © Zirve Ati
-  </div>
+    <!-- SADECE 2 LİNK -->
+    <div class="links">
+        <a href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz" target="_blank">
+            Instagram
+        </a>
+        <a href="https://wa.me/905365556710">
+            WhatsApp
+        </a>
+    </div>
+
+    <footer>
+        © 2026
+    </footer>
 </div>
 
 </body>
