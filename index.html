@@ -20,7 +20,7 @@ body{
     color:#e5e5e5;
 }
 
-/* VIDEO BACKGROUND */
+/* BACKGROUND VIDEO */
 video{
     position:fixed;
     top:0;
@@ -28,11 +28,11 @@ video{
     width:100%;
     height:100%;
     object-fit:cover;
-    filter:brightness(0.28) contrast(1.3);
+    filter:brightness(0.25) contrast(1.3);
     z-index:-3;
 }
 
-/* OVERLAY */
+/* DARK OVERLAY */
 .overlay{
     position:fixed;
     width:100%;
@@ -47,7 +47,7 @@ video{
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    padding:50px 40px;
+    padding:48px 38px;
     text-align:center;
     background:rgba(0,0,0,0.78);
     border-radius:14px;
@@ -55,61 +55,40 @@ video{
     box-shadow:0 0 45px rgba(0,255,255,0.22);
 }
 
-/* TITLE */
 h1{
     font-size:30px;
     letter-spacing:5px;
     color:#00ffff;
-    animation:flicker 4s infinite;
-}
-
-@keyframes flicker{
-    0%,20%,23%,55%,100% {opacity:1;}
-    21%,24%,56% {opacity:0.5;}
 }
 
 p{
     margin-top:12px;
     font-size:15px;
     opacity:0.7;
-    letter-spacing:1px;
 }
 
-/* LINKS */
 a{
     display:block;
-    margin-top:18px;
+    margin-top:16px;
     font-size:18px;
     color:#00ffff;
     text-decoration:none;
-    letter-spacing:1px;
-}
-
-a:hover{
-    text-shadow:0 0 20px #00ffff;
-}
-
-/* HINT */
-.hint{
-    margin-top:20px;
-    font-size:12px;
-    opacity:0.5;
 }
 </style>
 </head>
 
 <body>
 
-<!-- VIRTUAL / DIGITAL VIDEO -->
+<!-- SENİN TIKTOK VİDEON -->
 <video autoplay muted loop playsinline>
-    <source src="https://cdn.coverr.co/videos/coverr-digital-data-stream-9713/1080p.mp4" type="video/mp4">
+    <source src="bg.mp4" type="video/mp4">
 </video>
 
 <div class="overlay"></div>
 
 <div class="card">
     <h1>SOCIAL MEDIA EXPERT</h1>
-    <p>Virtual • Digital • Dark</p>
+    <p>Virtual • Dark • Digital</p>
 
     <a href="https://instagram.com/zirve.at1" target="_blank">
         Instagram: @zirve.at1
@@ -118,30 +97,7 @@ a:hover{
     <a href="tel:+905365556710">
         Tel: 0536 555 67 10
     </a>
-
-    <div class="hint">🔊 Ekrana dokun → müzik aktif olur</div>
 </div>
-
-<!-- MUSIC -->
-<audio id="bgMusic" autoplay loop>
-    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Dark_Souls/II/Dark_Souls_-_Majula.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-const music = document.getElementById("bgMusic");
-
-// Otomatik başlatmayı zorla dene
-window.addEventListener("load", () => {
-    music.volume = 0.4;
-    music.play().catch(()=>{});
-});
-
-// İlk dokunuşta kesin başlasın
-document.body.addEventListener("click", () => {
-    music.volume = 0.4;
-    music.play();
-}, { once:true });
-</script>
 
 </body>
 </html>
