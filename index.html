@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber Profiles - Neon + Kar</title>
+<title>Cyber Profiles - Neon + Kar + Müzik</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Courier New, monospace;}
@@ -17,8 +17,10 @@ video{
   z-index:-3;
 }
 
-canvas{position:fixed;inset:0;z-index:-2;}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:-1;}
+canvas{position:fixed;inset:0;z-index:-1;}
+#snow{z-index:1;} /* kar efekti matrix ve video üstünde */
+
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:0;}
 
 .container{
   position:absolute;
@@ -97,10 +99,10 @@ p{opacity:.7;margin-bottom:12px;color:#80ffff;}
 
 <!-- MÜZİK BUTONU -->
 <div class="container" style="top:85%">
-  <div class="btn" onclick="playMusic()">🎵 Deha – Alacarte</div>
+  <div class="btn" id="musicBtn">🎵 Deha – Alacarte</div>
 </div>
 
-<audio id="music">
+<audio id="music" preload="auto">
   <source src="deha.mp3" type="audio/mpeg">
 </audio>
 
@@ -110,6 +112,7 @@ const c=document.getElementById("matrix");
 const ctx=c.getContext("2d");
 c.width=innerWidth;
 c.height=innerHeight;
+
 const letters="01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 const colors=["#00ffcc","#ff00ff","#ffcc00","#00ccff","#ff66ff"];
 const font=18;
@@ -131,14 +134,7 @@ setInterval(()=>{
   });
 },33);
 
-/* MÜZİK */
-function playMusic(){
-  const m=document.getElementById("music");
-  m.volume=0.6;
-  m.play();
-}
-
-/* KAR EFEKTİ EMOJİLER */
+/* KAR/EMOJI YAĞIŞI */
 const snow=document.getElementById("snow");
 const sctx=snow.getContext("2d");
 snow.width=innerWidth;
@@ -146,13 +142,13 @@ snow.height=innerHeight;
 
 const emojis=["❄️","🌟","✨","💻","⚡","🌐"];
 const particles=[];
-for(let i=0;i<100;i++){
+for(let i=0;i<120;i++){
   particles.push({
     x:Math.random()*snow.width,
     y:Math.random()*snow.height,
     emoji:emojis[Math.floor(Math.random()*emojis.length)],
     speed:1+Math.random()*2,
-    size:15+Math.random()*15
+    size:15+Math.random()*20
   });
 }
 
@@ -162,13 +158,20 @@ function drawSnow(){
     sctx.font=p.size+"px monospace";
     sctx.fillText(p.emoji,p.x,p.y);
     p.y+=p.speed;
-    if(p.y>snow.height)p.y=-10;
+    if(p.y>snow.height)p.y=-20;
   });
   requestAnimationFrame(drawSnow);
 }
 drawSnow();
 
-/* WINDOW RESIZE */
+/* MÜZİK BUTONU - ÇALIŞIR HAL */
+const music=document.getElementById("music");
+document.getElementById("musicBtn").addEventListener("click",()=>{
+  music.volume=0.6;
+  music.play().catch(e=>console.log("Müzik çalınamadı, tarayıcı izin verilmeli"));
+});
+
+/* PENCERE DEĞİŞİNCE */
 window.addEventListener("resize",()=>{
   c.width=window.innerWidth;
   c.height=window.innerHeight;
