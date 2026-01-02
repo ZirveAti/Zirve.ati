@@ -6,77 +6,35 @@
 <title>Siber Profiller - Neon ✦</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Courier New, monospace;
-}
-
-body{
-  background:black;
-  color:#00ff00;
-  overflow:hidden;
-}
-
-canvas{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-}
-
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.35);
-  z-index:-1;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Courier New, monospace;}
+body{background:black;color:#00ff00;overflow:hidden;}
+canvas{position:fixed;inset:0;z-index:-2;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:-1;}
 .container{
-  position:absolute;
-  top:50%;
-  left:50%;
+  position:absolute;top:50%;left:50%;
   transform:translate(-50%,-50%);
-  display:flex;
-  gap:30px;
-  flex-wrap:wrap;
-  justify-content:center;
+  display:flex;gap:30px;flex-wrap:wrap;justify-content:center;
 }
-
 .card{
-  width:260px;
-  text-align:center;
-  background:linear-gradient(135deg,
-    rgba(0,255,255,.2),
-    rgba(255,0,255,.2)
-  );
-  padding:25px;
+  width:260px;text-align:center;padding:25px;
+  background:linear-gradient(135deg, rgba(0,255,255,.2), rgba(255,0,255,.2));
   border:1px solid #00ffff;
   box-shadow:0 0 25px rgba(0,255,255,.5);
   transition:.3s ease;
 }
 .card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 0 45px rgba(0,255,255,.7);
+  transform:translateY(-4px);
+  box-shadow:0 0 40px rgba(0,255,255,.7);
 }
-
 h2{letter-spacing:3px;margin-bottom:6px;}
-h3{letter-spacing:2px;margin-bottom:6px;color:#ff80ff;}
+h3{margin-bottom:6px;color:#ff80ff;}
 p{opacity:.8;margin-bottom:12px;color:#80ffff;}
-
 .btn{
-  display:block;
-  margin:10px 0;
-  padding:10px;
-  color:#ffcc00;
-  border:1px solid #ffcc00;
-  text-decoration:none;
-  cursor:pointer;
+  display:block;margin:8px 0;padding:10px;
+  border:1px solid #ffcc00;color:#ffcc00;
+  text-decoration:none;cursor:pointer;
 }
-.btn:hover{
-  background:#ffcc00;
-  color:black;
-}
+.btn:hover{background:#ffcc00;color:black;}
 </style>
 </head>
 
@@ -92,8 +50,14 @@ p{opacity:.8;margin-bottom:12px;color:#80ffff;}
     <h2>ATI ✦</h2>
     <h3>Sosyal Medya Uzmanı</h3>
     <p>⚡ Dijital Güç</p>
-    <a class="btn" href="#">Instagram 📷</a>
-    <a class="btn" href="#">WhatsApp 💬</a>
+    <a class="btn" target="_blank"
+       href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz">
+       Instagram 📷
+    </a>
+    <a class="btn" target="_blank"
+       href="https://wa.me/905365556710">
+       WhatsApp 💬
+    </a>
   </div>
 
   <!-- ELC1NN -->
@@ -101,60 +65,63 @@ p{opacity:.8;margin-bottom:12px;color:#80ffff;}
     <h2>ELC1NN ✦</h2>
     <p>Dijital Profil</p>
     <p>🚀 Siber Gelecek</p>
-    <a class="btn" href="#">Instagram 📷</a>
+    <a class="btn" target="_blank"
+       href="https://www.instagram.com/elc1nn23?igsh=MjlsN2R6ajA1eGRj">
+       Instagram 📷
+    </a>
   </div>
 
 </div>
 
-<!-- SES BUTONU -->
+<!-- SES -->
 <div class="container" style="top:85%">
-  <div class="btn" onclick="playSound()">🎵 Ses</div>
+  <div class="btn" onclick="toggleSound()">🎵 Ambient Ses</div>
 </div>
 
 <script>
 /* MATRIX */
-const c = document.getElementById("matrix");
-const ctx = c.getContext("2d");
-c.width = innerWidth;
-c.height = innerHeight;
-
-const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-const fontSize = 18;
-const columns = c.width / fontSize;
-const drops = Array(Math.floor(columns)).fill(1);
-
+const c=document.getElementById("matrix"),ctx=c.getContext("2d");
+c.width=innerWidth;c.height=innerHeight;
+const chars="01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",size=18;
+const cols=c.width/size,drops=Array(Math.floor(cols)).fill(1);
 setInterval(()=>{
   ctx.fillStyle="rgba(0,0,0,0.08)";
   ctx.fillRect(0,0,c.width,c.height);
-  ctx.font = fontSize+"px monospace";
+  ctx.font=size+"px monospace";
   ctx.fillStyle="#00ff00";
-
   drops.forEach((y,i)=>{
-    const text = chars[Math.floor(Math.random()*chars.length)];
-    ctx.fillText(text,i*fontSize,y*fontSize);
-    if(y*fontSize > c.height && Math.random() > 0.97) drops[i]=0;
+    const t=chars[Math.floor(Math.random()*chars.length)];
+    ctx.fillText(t,i*size,y*size);
+    if(y*size>c.height&&Math.random()>0.97)drops[i]=0;
     drops[i]++;
   });
 },33);
 
-/* RANDOM SES – DOSYASIZ */
-let audioCtx;
-function playSound(){
-  if(!audioCtx){
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+/* UZUN AMBIENT SES */
+let audioCtx,osc1,osc2,gainNode,playing=false;
+function toggleSound(){
+  if(!playing){
+    audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    osc1=audioCtx.createOscillator();
+    osc2=audioCtx.createOscillator();
+    gainNode=audioCtx.createGain();
+    osc1.type="sine";
+    osc2.type="triangle";
+    osc1.frequency.value=120+Math.random()*40;
+    osc2.frequency.value=220+Math.random()*60;
+    gainNode.gain.value=0.08;
+    osc1.connect(gainNode);
+    osc2.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    osc1.start();
+    osc2.start();
+    playing=true;
+  }else{
+    osc1.stop();
+    osc2.stop();
+    audioCtx.close();
+    playing=false;
   }
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-
-  osc.type = "sine";
-  osc.frequency.value = 300 + Math.random()*500;
-  gain.gain.value = 0.15;
-
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-
-  osc.start();
-  osc.stop(audioCtx.currentTime + 0.3);
 }
 </script>
 
