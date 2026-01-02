@@ -17,9 +17,9 @@ video{
   z-index:-3;
 }
 
-canvas{position:fixed;inset:0;}
+canvas{position:fixed;inset:0;pointer-events:none;}
 #matrix{z-index:0;}
-#snow{z-index:10;pointer-events:none;} /* kar/emoji en üstte */
+#snow{z-index:20;} /* kar en üstte */
 
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:1;}
 
@@ -134,33 +134,33 @@ setInterval(()=>{
   });
 },33);
 
-/* KAR/EMOJI YAĞIŞI */
+/* KAR EFEKTİ (GERÇEK GÖRÜNÜR NOKTALAR) */
 const snow=document.getElementById("snow");
 const sctx=snow.getContext("2d");
 snow.width=innerWidth;
 snow.height=innerHeight;
 
-const emojis=["❄️","🌟","✨","💻","⚡","🌐"];
 const particles=[];
-for(let i=0;i<150;i++){
+for(let i=0;i<200;i++){ // daha fazla kar tanesi
   particles.push({
     x:Math.random()*snow.width,
     y:Math.random()*snow.height,
-    emoji:emojis[Math.floor(Math.random()*emojis.length)],
-    speed:1+Math.random()*3,
-    size:15+Math.random()*25,
-    sway:Math.random()*1.5-0.75
+    r:1+Math.random()*3,
+    speed:1+Math.random()*2,
+    sway:Math.random()*1-0.5
   });
 }
 
 function drawSnow(){
   sctx.clearRect(0,0,snow.width,snow.height);
   particles.forEach(p=>{
-    sctx.font=p.size+"px monospace";
-    sctx.fillText(p.emoji,p.x,p.y);
+    sctx.fillStyle="white";
+    sctx.beginPath();
+    sctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    sctx.fill();
     p.y+=p.speed;
     p.x+=p.sway;
-    if(p.y>snow.height)p.y=-20;
+    if(p.y>snow.height)p.y=-5;
     if(p.x>snow.width)p.x=0;
     if(p.x<0)p.x=snow.width;
   });
@@ -168,14 +168,14 @@ function drawSnow(){
 }
 drawSnow();
 
-/* MÜZİK BUTONU - ÇALIŞIR HAL */
+/* MÜZİK */
 const music=document.getElementById("music");
 document.getElementById("musicBtn").addEventListener("click",()=>{
   music.volume=0.6;
   music.play().catch(e=>console.log("Müzik çalınamadı, tarayıcı izin verilmeli"));
 });
 
-/* PENCERE DEĞİŞİNCE */
+/* PENCERE BOYUTU DEĞİŞİNCE */
 window.addEventListener("resize",()=>{
   c.width=window.innerWidth;
   c.height=window.innerHeight;
