@@ -6,26 +6,51 @@
 <title>Siber Profiller - Neon</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Courier New, monospace;}
-body{background:black;color:#00ff00;overflow:hidden;}
-canvas{position:fixed;inset:0;z-index:-2;}
-#fog{z-index:-1;}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:0;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Courier New", monospace;
+}
+body{
+  background:black;
+  color:#00ff00;
+  overflow:hidden;
+}
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+}
+#sis{z-index:-1;}
+.kaplama{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  z-index:0;
+}
 
-.container{
-  position:absolute;top:50%;left:50%;
+.konteyner{
+  position:absolute;
+  top:50%;
+  left:50%;
   transform:translate(-50%,-50%);
-  display:flex;gap:30px;flex-wrap:wrap;justify-content:center;
+  display:flex;
+  gap:30px;
+  flex-wrap:wrap;
+  justify-content:center;
   z-index:1;
 }
-.card{
-  width:260px;text-align:center;padding:25px;
+.kart{
+  width:260px;
+  text-align:center;
+  padding:25px;
   background:linear-gradient(135deg, rgba(0,255,255,.2), rgba(255,0,255,.2));
   border:1px solid #00ffff;
   box-shadow:0 0 25px rgba(0,255,255,.5);
   transition:.3s ease;
 }
-.card:hover{
+.kart:hover{
   transform:translateY(-4px);
   box-shadow:0 0 40px rgba(0,255,255,.7);
 }
@@ -33,147 +58,131 @@ h2{letter-spacing:3px;margin-bottom:4px;}
 h3{margin-bottom:6px;font-weight:normal;color:#ff80ff;}
 p{opacity:.85;margin-bottom:12px;color:#80ffff;}
 
-.btn{
-  display:block;margin:8px 0;padding:10px;
-  border:1px solid #ffcc00;color:#ffcc00;
-  text-decoration:none;cursor:pointer;
+.dugme{
+  display:block;
+  margin:8px 0;
+  padding:10px;
+  border:1px solid #ffcc00;
+  color:#ffcc00;
+  text-decoration:none;
+  cursor:pointer;
 }
-.btn:hover{background:#ffcc00;color:black;}
-
-/* ✨ CAN PARÇAM GLOW */
-.glow{
-  color:#ffb3ff;
-  text-shadow:
-    0 0 5px rgba(255,128,255,0.6),
-    0 0 10px rgba(255,128,255,0.4),
-    0 0 20px rgba(255,128,255,0.2);
-  animation:glowPulse 2.5s ease-in-out infinite;
-}
-@keyframes glowPulse{
-  0%{
-    text-shadow:0 0 4px rgba(255,128,255,0.4),
-                0 0 8px rgba(255,128,255,0.2);
-    opacity:.85;
-  }
-  50%{
-    text-shadow:0 0 8px rgba(255,128,255,0.8),
-                0 0 16px rgba(255,128,255,0.6),
-                0 0 28px rgba(255,128,255,0.4);
-    opacity:1;
-  }
-  100%{
-    text-shadow:0 0 4px rgba(255,128,255,0.4),
-                0 0 8px rgba(255,128,255,0.2);
-    opacity:.85;
-  }
+.dugme:hover{
+  background:#ffcc00;
+  color:black;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="snow"></canvas>
-<canvas id="fog"></canvas>
-<div class="overlay"></div>
+<canvas id="kar"></canvas>
+<canvas id="sis"></canvas>
+<div class="kaplama"></div>
 
-<div class="container">
+<div class="konteyner">
 
   <!-- ATI -->
-  <div class="card">
+  <div class="kart">
     <h2>ATI ✦</h2>
     <h3>Sosyal Medya Uzmanı</h3>
     <p>⚡ Dijital Güç</p>
-    <a class="btn" target="_blank" href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz">Instagram 📷</a>
-    <a class="btn" target="_blank" href="https://wa.me/905365556710">WhatsApp 💬</a>
-  </div>
-
-  <!-- ELC1NN -->
-  <div class="card">
-    <h2>ELC1NN ❄️</h2>
-    <h3 class="glow">Can Parçam</h3>
-    <p>Dijital Profil</p>
-    <p>🚀 Siber Gelecek</p>
-    <a class="btn" target="_blank" href="https://www.instagram.com/elc1nn23?igsh=MjlsN2R6ajA1eGRj">Instagram 📷</a>
+    <a class="dugme" target="_blank"
+       href="https://www.instagram.com/zirve.at1?igsh=dGNhb20zNHVhMHQz">
+       Instagram 📷
+    </a>
+    <a class="dugme" target="_blank"
+       href="https://wa.me/905365556710">
+       WhatsApp 💬
+    </a>
   </div>
 
 </div>
 
-<div class="container" style="top:85%">
-  <div class="btn" onclick="toggleSound()">🎵 Ortam Sesleri</div>
+<div class="konteyner" style="top:85%">
+  <div class="dugme" onclick="sesiDegistir()">🎵 Ortam Sesleri</div>
 </div>
 
 <script>
 /* ❄️ KAR */
-const snow=document.getElementById("snow"),sctx=snow.getContext("2d");
-snow.width=innerWidth;snow.height=innerHeight;
-let flakes=Array.from({length:120},()=>({
-  x:Math.random()*snow.width,
-  y:Math.random()*snow.height,
+const kar = document.getElementById("kar");
+const sctx = kar.getContext("2d");
+kar.width = innerWidth;
+kar.height = innerHeight;
+
+const pullar = Array.from({length:120},()=>({
+  x:Math.random()*kar.width,
+  y:Math.random()*kar.height,
   r:Math.random()*3+1,
   d:Math.random()+0.5
 }));
-function drawSnow(){
-  sctx.clearRect(0,0,snow.width,snow.height);
+
+function karCiz(){
+  sctx.clearRect(0,0,kar.width,kar.height);
   sctx.fillStyle="white";
-  flakes.forEach(f=>{
+  pullar.forEach(f=>{
     sctx.beginPath();
     sctx.arc(f.x,f.y,f.r,0,Math.PI*2);
     sctx.fill();
     f.y+=f.d;
-    if(f.y>snow.height){f.y=-5;f.x=Math.random()*snow.width;}
+    if(f.y>kar.height){
+      f.y=-5;
+      f.x=Math.random()*kar.width;
+    }
   });
-  requestAnimationFrame(drawSnow);
+  requestAnimationFrame(karCiz);
 }
-drawSnow();
+karCiz();
 
 /* 🌫️ SİS */
-const fog=document.getElementById("fog"),fctx=fog.getContext("2d");
-fog.width=innerWidth;fog.height=innerHeight;
-let fogX=0;
-function drawFog(){
-  fctx.clearRect(0,0,fog.width,fog.height);
-  let g=fctx.createLinearGradient(fogX,0,fogX+fog.width,0);
+const sis = document.getElementById("sis");
+const fctx = sis.getContext("2d");
+sis.width = innerWidth;
+sis.height = innerHeight;
+let sisX = 0;
+
+function sisCiz(){
+  fctx.clearRect(0,0,sis.width,sis.height);
+  const g = fctx.createLinearGradient(sisX,0,sisX+sis.width,0);
   g.addColorStop(0,"rgba(200,200,255,0.04)");
   g.addColorStop(0.5,"rgba(255,255,255,0.10)");
   g.addColorStop(1,"rgba(200,200,255,0.04)");
-  fctx.fillStyle=g;
-  fctx.fillRect(0,0,fog.width,fog.height);
-  fogX+=0.12;
-  if(fogX>fog.width) fogX=0;
-  requestAnimationFrame(drawFog);
+  fctx.fillStyle = g;
+  fctx.fillRect(0,0,sis.width,sis.height);
+  sisX += 0.12;
+  if(sisX > sis.width) sisX = 0;
+  requestAnimationFrame(sisCiz);
 }
-drawFog();
+sisCiz();
 
-/* 🎶 DERİN AMBIENT SES */
-let audioCtx,osc1,osc2,filter,gainNode,playing=false;
-function toggleSound(){
-  if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+/* 🎶 SES */
+let audioCtx, osc1, osc2, gainNode, playing=false;
+function sesiDegistir(){
+  if(!audioCtx)
+    audioCtx = new (window.AudioContext||window.webkitAudioContext)();
   if(audioCtx.state==="suspended") audioCtx.resume();
 
   if(!playing){
-    osc1=audioCtx.createOscillator();
-    osc2=audioCtx.createOscillator();
-    filter=audioCtx.createBiquadFilter();
-    gainNode=audioCtx.createGain();
+    osc1 = audioCtx.createOscillator();
+    osc2 = audioCtx.createOscillator();
+    gainNode = audioCtx.createGain();
 
     osc1.type="sine";
     osc2.type="sawtooth";
     osc1.frequency.value=90;
     osc2.frequency.value=140;
-
-    filter.type="lowpass";
-    filter.frequency.value=600;
     gainNode.gain.value=0.05;
 
-    osc1.connect(filter);
-    osc2.connect(filter);
-    filter.connect(gainNode);
+    osc1.connect(gainNode);
+    osc2.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
-    osc1.start(); osc2.start();
+    osc1.start();
+    osc2.start();
     playing=true;
   }else{
-    osc1.stop(); osc2.stop();
+    osc1.stop();
+    osc2.stop();
     playing=false;
   }
 }
